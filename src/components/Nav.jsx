@@ -1,3 +1,7 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable camelcase */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -22,5 +26,5 @@ export default Nav;
 Nav.propTypes = {
   logged_in: PropTypes.bool.isRequired,
   display_form: PropTypes.func.isRequired,
-  handle_logout: PropTypes.func.isRequired
+  handle_logout: PropTypes.func.isRequired,
 };

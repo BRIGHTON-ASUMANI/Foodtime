@@ -1,4 +1,7 @@
+/* eslint-disable camelcase */
+/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Nav from './components/Nav';
 import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
@@ -9,8 +12,8 @@ class App extends Component {
     super(props);
     this.state = {
       displayed_form: '',
-      logged_in: localStorage.getItem('token') ? true : false,
-      username: ''
+      logged_in: !!localStorage.getItem('token'),
+      username: '',
     };
   }
 
@@ -18,11 +21,11 @@ class App extends Component {
     if (this.state.logged_in) {
       fetch('http://localhost:8000/core/current_user/', {
         headers: {
-          Authorization: `JWT ${localStorage.getItem('token')}`
-        }
+          Authorization: `JWT ${localStorage.getItem('token')}`,
+        },
       })
-        .then(res => res.json())
-        .then(json => {
+        .then((res) => res.json())
+        .then((json) => {
           this.setState({ username: json.username });
         });
     }
@@ -33,17 +36,17 @@ class App extends Component {
     fetch('http://localhost:8000/token-auth/', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-      .then(res => res.json())
-      .then(json => {
+      .then((res) => res.json())
+      .then((json) => {
         localStorage.setItem('token', json.token);
         this.setState({
           logged_in: true,
           displayed_form: '',
-          username: json.user.username
+          username: json?.user?.username,
         });
       });
   };
@@ -53,17 +56,17 @@ class App extends Component {
     fetch('http://localhost:8000/core/users/', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-      .then(res => res.json())
-      .then(json => {
+      .then((res) => res.json())
+      .then((json) => {
         localStorage.setItem('token', json.token);
         this.setState({
           logged_in: true,
           displayed_form: '',
-          username: json.username
+          username: json.username,
         });
       });
   };
@@ -73,9 +76,9 @@ class App extends Component {
     this.setState({ logged_in: false, username: '' });
   };
 
-  display_form = form => {
+  display_form = (form) => {
     this.setState({
-      displayed_form: form
+      displayed_form: form,
     });
   };
 
@@ -93,6 +96,45 @@ class App extends Component {
     }
 
     return (
+      <Router>
+        <div className="App">
+          <nav className="navbar navbar-expand-lg navbar-light fixed-top">
+            <div className="container">
+              <Link className="navbar-brand" to="/sign-in">
+                Food Timer
+              </Link>
+              <div
+                className="collapse navbar-collapse"
+                id="navbarTogglerDemo02"
+              >
+                <ul className="navbar-nav ml-auto">
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/sign-in">
+                      Login
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/sign-up">
+                      Sign up
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+
+          <div className="auth-wrapper">
+            <div className="auth-inner">
+              <Switch>
+                <Route exact path="/" component={LoginForm} />
+                <Route path="/sign-in" component={LoginForm} />
+                <Route path="/sign-up" component={SignupForm} />
+              </Switch>
+            </div>
+          </div>
+        </div>
+
+        {/* SignUp
       <div className="App">
         <Nav
           logged_in={this.state.logged_in}
@@ -105,7 +147,8 @@ class App extends Component {
             ? `Hello, ${this.state.username}`
             : 'Please Log In'}
         </h3>
-      </div>
+          </div> */}
+      </Router>
     );
   }
 }

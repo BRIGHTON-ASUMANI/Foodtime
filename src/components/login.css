@@ -1,0 +1,13 @@
+.login-form {
+  max-width: 400px;
+  padding: 10px;
+  /* background-color: blue; */
+  width: 70%;
+  margin: auto;
+}
+#components-form-demo-normal-login .login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+}

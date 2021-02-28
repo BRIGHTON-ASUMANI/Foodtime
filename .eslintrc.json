@@ -1,0 +1,91 @@
+{
+    "extends": [
+      "airbnb",
+      "eslint:recommended",
+      "plugin:prettier/recommended",
+      "plugin:react/recommended",
+      "plugin:prettier/recommended",
+      "plugin:react-hooks/recommended"
+    ],
+    "plugins": [
+      "prettier",
+      "react-hooks"
+    ],
+    "rules": {
+      //"max-len": ["error", { "code": 120 }],
+      "max-len": "off",
+      "react/prop-types": 0,
+      "no-underscore-dangle": 0,
+      "import/imports-first": [
+        "error",
+        "absolute-first"
+      ],
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "devDependencies": true
+        }
+      ],
+      "import/newline-after-import": "error",
+      "no-unused-vars": 0,
+      "no-undef": "error",
+      "no-return-assign": 0,
+      "no-plusplus": "off",
+      "no-param-reassign": 0,
+      "import/no-unresolved": 0,
+      "import/extension": 0,
+      "max-classes-per-file": 0,
+      "no-console": 0,
+      "linebreak-style": 0,
+      "react/sort-comp": 0,
+      "react/jsx-key": 0,
+      // "react/destructuring-assignment": [
+      //   2,
+      //   {
+      //     "extensions": [
+      //       ".jsx"
+      //     ]
+      //   }
+      // ],
+      "react/destructuring-assignment": 0,
+      "react/no-unused-state": 0,
+      "react/no-access-state-in-setstate": 0,
+      "react/no-array-index-key": 0,
+      "react/state-in-constructor": 0,
+      "react/static-property-placement": 0,
+      "react/jsx-props-no-spreading": 0,
+      "react/jsx-filename-extension": [
+        1,
+        {
+          "extensions": [
+            ".js",
+            ".jsx"
+          ]
+        }
+      ],
+      "jsx-a11y/click-events-have-key-events": 0,
+      "jsx-a11y/no-static-element-interactions": 0,
+      "camelcase": [
+        "error",
+        {
+          "ignoreDestructuring": true,
+          "properties": "never"
+        }
+      ]
+    },
+    "env": {
+      "jest": true,
+      "browser": true
+    },
+    "globals": {
+      "window": true,
+      "document": true,
+      "localStorage": true,
+      "FormData": true,
+      "FileReader": true,
+      "Blob": true,
+      "navigator": true,
+      "fetch": false
+    },
+    "parser": "babel-eslint"
+  }
