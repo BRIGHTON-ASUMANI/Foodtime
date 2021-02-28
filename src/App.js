@@ -32,6 +32,7 @@ class App extends Component {
   }
 
   handle_login = (e, data) => {
+    console.log(data);
     e.preventDefault();
     fetch('http://localhost:8000/token-auth/', {
       method: 'POST',

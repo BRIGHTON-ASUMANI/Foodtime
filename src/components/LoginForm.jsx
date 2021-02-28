@@ -23,16 +23,37 @@ class NormalLoginForm extends React.Component {
     password: '',
   };
 
+  handle_login = (e, data) => {
+    console.log(data);
+    e.preventDefault();
+    fetch('http://localhost:8000/token-auth/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        localStorage.setItem('token', json.token);
+        this.setState({
+          logged_in: true,
+          displayed_form: '',
+          username: json?.user?.username,
+        });
+      });
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        this.handle_login(e, values);
       }
     });
   };
 
-  handle_change = (e) => {
+  handleUserChange = (e) => {
     const { name } = e.target;
     const { value } = e.target;
     this.setState((prevstate) => {
@@ -41,8 +62,6 @@ class NormalLoginForm extends React.Component {
       return newState;
     });
   };
-
-  // e => this.props.handle_login(e, this.state)
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -59,7 +78,7 @@ class NormalLoginForm extends React.Component {
                   whitespace: true,
                 },
               ],
-            })(<Input />)}
+            })(<Input onChange={this.handle_change} />)}
           </Form.Item>
         </div>
         <div className="form-group">
@@ -71,7 +90,7 @@ class NormalLoginForm extends React.Component {
                   message: 'Please input your password!',
                 },
               ],
-            })(<Input.Password />)}
+            })(<Input.Password onChange={this.handle_change} />)}
           </Form.Item>
         </div>
         <div className="form-group">
